@@ -79,6 +79,7 @@ export default function ThreadPage() {
   useEffect(() => {
     fetchThread()
     fetchReplies()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.thread])
 
   const handleSubmitReply = async (e: React.FormEvent) => {

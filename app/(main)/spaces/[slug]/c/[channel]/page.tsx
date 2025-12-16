@@ -63,6 +63,7 @@ export default function ChannelPage() {
 
   useEffect(() => {
     fetchChannel()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.slug, params.channel])
 
   useEffect(() => {
@@ -73,6 +74,7 @@ export default function ChannelPage() {
       const interval = setInterval(fetchMessages, 5000)
       return () => clearInterval(interval)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [channel])
 
   if (isLoading) {
