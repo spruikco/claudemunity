@@ -9,7 +9,7 @@ export default async function HomePage() {
       <div>
         <h1 className="text-3xl font-bold">Welcome back, {session?.user.name}!</h1>
         <p className="text-muted-foreground mt-2">
-          Here's what's happening in your community today.
+          Here&apos;s what&apos;s happening in your community today.
         </p>
       </div>
 
