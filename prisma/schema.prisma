@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  displayName   String
+  username      String    @unique
+  avatarUrl     String?
+  bio           String?
+  role          Role      @default(MEMBER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  messages      ChannelMessage[]
+  threads       Thread[]
+  replies       ThreadReply[]
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+model Space {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  icon        String?
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  channels    Channel[]
+  threads     Thread[]
+}
+
+model Channel {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String
+  description String?
+  spaceId     String
+  space       Space     @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  messages    ChannelMessage[]
+  @@unique([spaceId, slug])
+}
+
+model ChannelMessage {
+  id        String   @id @default(cuid())
+  content   String
+  channelId String
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Thread {
+  id             String        @id @default(cuid())
+  title          String
+  content        String
+  spaceId        String
+  space          Space         @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  replyCount     Int           @default(0)
+  lastActivityAt DateTime      @default(now())
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  replies        ThreadReply[]
+}
+
+model ThreadReply {
+  id        String   @id @default(cuid())
+  content   String
+  threadId  String
+  thread    Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
