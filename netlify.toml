@@ -11,7 +11,7 @@
 [context.production.environment]
   DATABASE_URL = "postgresql://neondb_owner:npg_PjctZ3bY8vzH@ep-late-king-a71a0chy-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require"
   NEXTAUTH_SECRET = "Atj2Dlo0BIbarYvgZQMRGPvJsbt5kE+30FwXFzVpjc0="
-  NEXTAUTH_URL = "https://claudemunity.netlify.app"
+  NEXTAUTH_URL = "https://claudemunity.com"
 
 [context.deploy-preview.environment]
   DATABASE_URL = "postgresql://neondb_owner:npg_PjctZ3bY8vzH@ep-late-king-a71a0chy-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require"
